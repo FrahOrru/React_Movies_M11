@@ -69,3 +69,11 @@ nav ul {
   justify-content: flex-start;
   align-items: center;
 }
+
+.movie-list {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 2rem;
+}

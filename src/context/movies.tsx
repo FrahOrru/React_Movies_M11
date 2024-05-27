@@ -27,6 +27,7 @@ interface MovieContextValue {
     fetchMovies: () => void;
     fetchTopRatedMovies: () => void;
     getMovieByImdbId: (imdbId: string) => Movie | undefined;
+    getAllMoviesSortedByRating: () => Movie[];
 }
 
 const MovieContext = createContext<MovieContextValue | undefined>(undefined);
@@ -73,13 +74,17 @@ export const MovieProvider: React.FC<MovieProviderProps> = ({ children }) => {
         return state.movies.find(movie => movie.imdb_url.includes(imdbId));
     };
 
+    const getAllMoviesSortedByRating = (): Movie[] => {
+        return [...state.movies].sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating));
+    };
+
     useEffect(() => {
         fetchMovies();
         fetchTopRatedMovies();
     }, []);
 
     return (
-        <MovieContext.Provider value={{ state, fetchMovies, fetchTopRatedMovies, getMovieByImdbId }}>
+        <MovieContext.Provider value={{ state, fetchMovies, fetchTopRatedMovies, getMovieByImdbId, getAllMoviesSortedByRating }}>
             {children}
         </MovieContext.Provider>
     );

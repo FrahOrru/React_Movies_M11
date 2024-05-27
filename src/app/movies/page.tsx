@@ -1,19 +1,48 @@
-"use client";
+'use client';
 
+import MovieCardSm from "@/components/MovieCardSm/movie_card_sm";
+import Search from "@/components/SearchInput/search_input";
 import { Movie, useMovieContext } from "@/context/movies";
 import { useEffect, useState } from "react";
 
-export default function MoviesGrid(){
-    const { fetchMovies, state: { movies, loading, error } } = useMovieContext();
-    const [movie, setMovie] = useState<Movie | null | undefined>(null); // Correct use of useState
-
+export default function MoviesGrid() {
+    const { fetchMovies, getAllMoviesSortedByRating, state: { loading, error } } = useMovieContext();
+    const [sortedMovies, setSortedMovies] = useState<Movie[]>([]);
+    const [filteredMovies, setFilteredMovies] = useState<Movie[]>([]);
     useEffect(() => {
         fetchMovies();
     }, []); 
 
-    return (<div>
-        {movies.map((movie) => {
-            return <div key={movie.imdb_url}>{movie.name}</div>
-        })}
-    </div>)
+    useEffect(() => {
+        if (!loading && !error) {
+            const movies = getAllMoviesSortedByRating();
+            setSortedMovies(movies);
+        }
+    }, [loading, error, getAllMoviesSortedByRating]);
+
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>Error: {error}</div>;
+
+    const handleSearch = (searchTerm: string) => {
+        console.log(searchTerm);
+        if (searchTerm === '') {
+            setFilteredMovies(sortedMovies); // Reset to all movies if search is empty
+        } else {
+            const filtered = sortedMovies.filter(movie => 
+                movie.name.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+            setFilteredMovies(filtered);
+        }
+    };
+
+    return (
+        <div>
+            <Search onSearch={handleSearch} />
+            <div className="movie-list">
+                {sortedMovies.map((movie) => (
+                    <MovieCardSm key={movie.imdb_url} movie={movie} />
+                ))}
+            </div>
+        </div>
+    );
 }

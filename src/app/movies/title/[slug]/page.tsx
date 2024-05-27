@@ -6,8 +6,12 @@ import { useEffect, useState } from "react";
 
 
 export default function MovieDetail({ params }: { params: { slug: string } }) {
-    const { getMovieByImdbId, state: { loading, error } } = useMovieContext();
+    const { getMovieByImdbId, fetchMovies, state: { loading, error } } = useMovieContext();
     const [movie, setMovie] = useState<Movie | null | undefined>(null); // Correct use of useState
+
+    useEffect(() => {
+        fetchMovies();
+    }, []); 
 
     useEffect(() => {
         const foundMovie = getMovieByImdbId('/title/' + params.slug);

@@ -14,7 +14,7 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1;
+  z-index: 0;
 }
 
 .movie-content {
@@ -29,21 +29,6 @@
 
   z-index: 2;
   position: relative;
-}
-
-.movie-content h2 {
-  width: 100%;
-
-  font-weight: 700;
-  font-style: normal;
-  font-size: 48px;
-  line-height: 100%;
-
-  text-transform: uppercase;
-
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 span {

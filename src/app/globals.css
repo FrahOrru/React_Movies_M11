@@ -26,4 +26,33 @@
 * {
   margin: 0;
   padding: 0;
+  color: #fff;
+}
+
+.movie-detail-header {
+  height: 45vh;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+
+.movie-title {
+  color: #fff;
+
+  width: 100%;
+
+  font-weight: 700;
+  font-style: normal;
+  font-size: 48px;
+  line-height: 100%;
+
+  text-transform: uppercase;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  position: relative;
+  z-index: 4;
 }

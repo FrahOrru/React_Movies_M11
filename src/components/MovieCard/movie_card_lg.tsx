@@ -20,7 +20,7 @@ const MovieCardLg: React.FC<MovieCardLgProps> = ({ movie }) => {
         <div className="w-screen movie-card-lg" style={backgroundImageStyle}>
             <div className="veil"></div>
             <div className="movie-content px-12 py-12">
-                <h2>{movie.name}</h2>
+                <h2 className="movie-title">{movie.name}</h2>
                 <p className="py-9 w-3/4">{movie.desc}</p>
 
                 <div>

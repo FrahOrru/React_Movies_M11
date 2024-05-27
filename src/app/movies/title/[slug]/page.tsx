@@ -14,6 +14,13 @@ export default function MovieDetail({ params }: { params: { slug: string } }) {
         setMovie(foundMovie);
     }, [params.slug]); 
 
+    const backgroundImageStyle = {
+        backgroundImage: `url(${movie?.image_url})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+    };
+
+
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
     
@@ -22,9 +29,21 @@ export default function MovieDetail({ params }: { params: { slug: string } }) {
     }
 
     return (
-        <main className="flex min-h-screen flex-col items-center justify-between">
-            <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-                <div>Dynamic page, slug: {params.slug}</div>   
+        <main className="bg-zinc-900 min-h-screen">
+            <div className="movie-detail-header w-screen p-4" style={backgroundImageStyle}>
+                <div className="veil"></div>
+                <h2 className="movie-title">{movie.name}</h2>
+            </div>
+            <div className="z-10 w-full max-w-5xl font-mono text-sm">
+                   <p>{movie.desc}</p>
+                   <div>
+                     <div>
+                        <p><span>Actors</span> {movie.actors.join(', ')}</p>
+                        <p><span>Genre</span> {movie.genre.join(', ')}</p>
+                        <p><span>Year</span> {movie.year}</p>
+                     </div>
+                     <div>{movie.rating} / 10</div>
+                   </div>
             </div>
         </main>
     )

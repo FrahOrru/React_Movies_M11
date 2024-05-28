@@ -9,8 +9,12 @@ export default function MoviesGrid() {
     const { fetchMovies, getAllMoviesSortedByRating, state: { loading, error } } = useMovieContext();
     const [sortedMovies, setSortedMovies] = useState<Movie[]>([]);
     const [filteredMovies, setFilteredMovies] = useState<Movie[]>([]);
+    
     useEffect(() => {
         fetchMovies();
+        const movies = getAllMoviesSortedByRating();
+        setSortedMovies(movies);
+        setFilteredMovies(movies);
     }, []); 
 
     useEffect(() => {
@@ -25,14 +29,12 @@ export default function MoviesGrid() {
     if (error) return <div>Error: {error}</div>;
 
     const handleSearch = (searchTerm: string) => {
-        console.log('seeeaaaarch', searchTerm);
         if (searchTerm === '') {
             setFilteredMovies(sortedMovies); // Reset to all movies if search is empty
         } else {
             const filtered = sortedMovies.filter(movie => 
                 movie.name.toLowerCase().includes(searchTerm.toLowerCase())
             );
-            console.log(filtered)
             setFilteredMovies(filtered);
         }
     };

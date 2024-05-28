@@ -13,7 +13,7 @@ const MovieCardSm: React.FC<MovieCardSmProps> = ({ movie }) => {
     const router = useRouter();
 
     return (
-        <div className="movie-card-sm">
+        <div className="movie-card-sm" onClick={() => router.push('/movies' + movie.imdb_url)}>
             <Image 
                 src={imageError ? '/placeholder.png' : movie.image_url} 
                 alt="movie image" 
@@ -21,7 +21,6 @@ const MovieCardSm: React.FC<MovieCardSmProps> = ({ movie }) => {
                 width={150} 
                 onError={() => setImageError(true)}
                 className='image-movie-all'
-                onClick={() => router.push('/movies' + movie.imdb_url)}
             />
             <Image 
                 className="movie_arrow-sm" 

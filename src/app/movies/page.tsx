@@ -17,6 +17,7 @@ export default function MoviesGrid() {
         if (!loading && !error) {
             const movies = getAllMoviesSortedByRating();
             setSortedMovies(movies);
+            setFilteredMovies(movies);
         }
     }, [loading, error, getAllMoviesSortedByRating]);
 
@@ -24,13 +25,14 @@ export default function MoviesGrid() {
     if (error) return <div>Error: {error}</div>;
 
     const handleSearch = (searchTerm: string) => {
-        console.log(searchTerm);
+        console.log('seeeaaaarch', searchTerm);
         if (searchTerm === '') {
             setFilteredMovies(sortedMovies); // Reset to all movies if search is empty
         } else {
             const filtered = sortedMovies.filter(movie => 
                 movie.name.toLowerCase().includes(searchTerm.toLowerCase())
             );
+            console.log(filtered)
             setFilteredMovies(filtered);
         }
     };
@@ -38,8 +40,8 @@ export default function MoviesGrid() {
     return (
         <div>
             <Search onSearch={handleSearch} />
-            <div className="movie-list">
-                {sortedMovies.map((movie) => (
+            <div className="movie-list mt-4">
+                {filteredMovies.map((movie) => (
                     <MovieCardSm key={movie.imdb_url} movie={movie} />
                 ))}
             </div>
